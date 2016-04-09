@@ -1,4 +1,4 @@
-angular.module('ME').controller('FindPatient', ['$scope', 'toastr', function ($scope, toastr) {
+angular.module('ME').controller('FindPatient', ['$scope', 'toastr', 'Upload', function ($scope, toastr, Upload) {
 	console.log('ME Project');
 
 	$scope.findPatient = function(){
@@ -21,4 +21,23 @@ angular.module('ME').controller('FindPatient', ['$scope', 'toastr', function ($s
 
 		})
 	}
+
+	$scope.uploadFile = function() {
+      if ($scope.form.file.$valid && $scope.file) {
+        $scope.upload($scope.file);
+      }
+    };
+
+    // upload on file select or drop
+    $scope.upload = function (file) {
+       patientFiles.insert(file, function (err, fileObj) {
+        if(err)
+        	toastr.error('There was some error uploading the file', 'Error');
+        else{
+        	toastr.success('File Uploaded', 'Success');
+        }
+      });
+    };
+    // for multiple files:
+
 }])

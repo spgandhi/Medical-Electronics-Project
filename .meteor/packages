@@ -23,3 +23,7 @@ accounts-password
 suxez:jasny-bootstrap
 twbs:bootstrap
 vishalm:angular-toastr
+danialf:ng-file-upload
+cfs:standard-packages
+cfs:filesystem
+cfs:gridfs
