@@ -24,5 +24,25 @@ angular.module('ME').config(function($urlRouterProvider, $stateProvider, $locati
       controller: 'Register'
     })
 
+    .state('profile', {
+      url: '/profile',
+      templateUrl: 'client/views/profile.html',
+      data: {
+        requireLogin: true,
+        onlySuperAdmin: false
+      },
+      controller: 'Profile'
+    })
+
+    .state('findPatient', {
+      url: '/findPatient',
+      templateUrl: 'client/views/findPatient.html',
+      data: {
+        requireLogin: true,
+        onlySuperAdmin: false
+      },
+      controller: 'FindPatient'
+    })
+
   $urlRouterProvider.otherwise("/home");
 });

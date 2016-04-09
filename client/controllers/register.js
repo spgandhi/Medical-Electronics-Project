@@ -1,8 +1,8 @@
-angular.module('ME').controller('Register', ['$scope', function ($scope) {
+angular.module('ME').controller('Register', ['$scope', 'toastr', '$state', function ($scope, toastr, $state) {
 	
 	$scope.registerMe = function(){
 		console.log($scope.newUser);
-		return;
+		// return;
 
 		Accounts.createUser({email: $scope.newUser.email, password: $scope.newUser.password, profile:$scope.newUser.profile}, function(err){
 			if(err)
