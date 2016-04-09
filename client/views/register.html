@@ -1,18 +1,49 @@
+<div class="col-lg-12">
 <form class="col-lg-6" name="register">
   
   <h3>Account Details</h3>
   <div class="form-group">
+    <label for="exampleInputEmail1">Name</label>
+    <span class="red">*</span>
+    <input type="text" class="form-control" ng-model="newUser.profile.name" required>
+  </div>
+
+  <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
+    <span class="red">*</span>
     <input type="email" class="form-control" ng-model="newUser.email" required>
   </div>
 
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" ng-model="newUser.password" required>
+    <label for="exampleInputEmail1">Password</label>
+    <span class="red">*</span>
+    <input type="password" class="form-control" ng-model="newUser.password" required>
+  </div>
+
+  <div class="form-group datetimepicker">
+    <label for="exampleInputEmail1">Birthdate</label>
+    <span class="red">*</span>
+    <input class="set-due-date form-control datetimepicker" type="text" ng-model="newUser.profile.birthdate" required>
+  </div>
+  <script type="text/javascript">
+   $('.datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY'
+   });
+  </script>
+
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Gender</label>
+    <span class="red">*</span>
+    <select ng-model="newUser.profile.gender" required>
+      <option class="male">male</option>
+      <option class="female">female</option>
+    </select>
   </div>
 
   <div class="form-group">
     <label for="exampleInputPassword1">Blood Group</label>
+    <span class="red">*</span>
     <select ng-model="newUser.profile.blood_group" required>
       <option class="AB+">AB+</option>
       <option class="AB-">AB-</option>
@@ -30,12 +61,23 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Mobile No.</label>
+    <span class="red">*</span>
     <input type="text" class="form-control" ng-model="newUser.profile.primary_contact_no" required>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Father's Name</label>
+    <input type="text" class="form-control" ng-model="newUser.profile.father_name">
   </div>
 
   <div class="form-group">
     <label for="exampleInputEmail1">Fathers No.</label>
     <input type="text" class="form-control" ng-model="newUser.profile.father_contact_no">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Mother's Name</label>
+    <input type="text" class="form-control" ng-model="newUser.profile.mother_name">
   </div>
 
   <div class="form-group">
@@ -55,11 +97,13 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Address</label>
-    <textarea class="form-control" rows="5" ng-model="newUser.profile.address"></textarea>
+    <span class="red">*</span>
+    <textarea class="form-control" rows="5" ng-model="newUser.profile.address" required></textarea>
   </div>
 
   <div class="form-group">
     <label for="exampleInputEmail1">Profile Status</label>
+    <span class="red">*</span>
     <select ng-model="newUser.profile.profile_status" required>
       <option value="public">Public</option>
       <option value="private">Private</option>
@@ -70,3 +114,5 @@
   <button class="btn btn-default" ng-click="registerMe()">Register</button>
 
 </form>
+<br><br>
+</div>
