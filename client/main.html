@@ -8,27 +8,31 @@
 
       <!-- The justified navigation menu is meant for single line per list item.
            Multiple lines will require custom code not provided by Bootstrap. -->
-      <div class="masthead">
-        <h3 class="text-muted">MEDICORD</h3>
-        <span>{{currentUser._id}}</span>
-        <nav>
+      <div class="masthead" ng-show="currentUser">
+        <h3 class="text-muted">MEDICORD<span class="pull-right">MediCord ID: {{currentUser._id}}</span></h3>
+        
+      </div>
+
+      <div>
+        <nav ng-show="currentUser">
           <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Downloads</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="/#/profile">Profile</a></li>
+            <li><a href="/#/profile/contact">Contact Info</a></li>
+            <li><a href="/#/profile/reports">Reports</a></li>
+            <li><a href="/#/profile/new-report">Upload Report</a></li>
+            <li><a href="/#/profile/logs">Logs</a></li>
+            <li ng-show="currentUser.role!='user'"><a href="/#/findPatient">Find Patient</a></li>
+            <li><a ng-click="logout()">Logout</a></li>
           </ul>
         </nav>
       </div>
   
-      <ui-view>
+      <ui-view style="display: block; margin: 20px 10px;">
       </ui-view>
 
       <!-- Site footer -->
       <footer class="footer">
-        <p>&copy; 2015 Company, Inc.</p>
+        <p>&copy; 2016 Medicord, Inc.</p>
       </footer>
 
     </div> <!-- /container -->

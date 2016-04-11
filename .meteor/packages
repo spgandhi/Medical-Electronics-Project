@@ -29,3 +29,5 @@ cfs:filesystem
 cfs:gridfs
 tsega:bootstrap3-datetimepicker
 
+reywood:publish-composite
+angular-meteor-auth

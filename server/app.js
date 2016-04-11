@@ -27,3 +27,22 @@ patientFiles.allow({
  return true;
  }
 });
+
+Meteor.methods({
+
+	newFileUploaded: function(file, patient_id){
+		Meteor.users.update({_id: patient_id}, {$push: {'profile.reports': file}});
+		return;
+	},
+
+	getReports: function(owner){
+		return patientFiles.find({'metadata.owner' : owner}).forEach(function(doc){
+			doc.owner = Meteor.users.findOne({_id: doc.metadata.owner});
+		});
+	},
+
+	addLogs: function(patient, data){
+		Meteor.users.update({_id: patient}, {$push: {'profile.logs': data}});
+		return;
+	}
+})

@@ -1,93 +1,198 @@
-<div class="search-box">
-	<input type="text" ng-model="patient_id" style="padding: 10px 10px;width: 400px;font-size: 20px;">
-	<div class="text-center" style="margin-top:20px;">
-		<button class="btn btn-primary" ng-click="findPatient()">Find Patient</button>
+<div ng-show="currentUser.profile.role == 'user'" style="text-align: center; margin: 20px">
+	Sorry. You cannot search for a user profile.
+</div>
+
+<div ng-show="currentUser.profile.role!='user'">
+	<div class="search-box">
+		
+		<input type="text" ng-model="patient_id" style="padding: 10px 10px;width: 400px;font-size: 20px;" placeholder="17 digits unique ID">
+
+		<center style="margin:20px 0">OR</center>
+
+        <input type="email" ng-model="patient_email" style="padding: 10px 10px;width: 400px;font-size: 20px;" placeholder="Email">
+ 		<span style="position: relative;">
+			<input type="text" id="dob-search" style="padding: 10px 10px;width: 400px;font-size: 20px;" placeholder="DOB">
+		</span>
+		
+		
+		<script type="text/javascript">
+	        $('#dob-search').datetimepicker({
+	          format: 'DD/MM/YYYY'
+	        });
+        </script>
+
+		<div class="text-center" style="margin-top:20px;">
+			<button class="btn btn-primary" ng-click="findPatient()">Find Patient</button>
+		</div>
 	</div>
-</div>
 
-<div>
+	<div ng-show="patient && patient.profile.profile_status == 'public' ">
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active">
-    	<a data-target="#home" role="tab" data-toggle="tab">Home</a>
-    </li>
-    <li role="presentation">
-    	<a data-target="#profile" role="tab" data-toggle="tab">Profile</a>
-    </li>
-    <li role="presentation">
-    	<a href="" aria-controls="messages"  data-toggle="tab">Messages</a>
-    </li>
-    <li role="presentation"><a href="" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-  </ul>
+	  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs" role="tablist">
+	    <li role="presentation" class="active">
+	    	<a data-target="#home" role="tab" data-toggle="tab">Home</a>
+	    </li>
+	    <li role="presentation">
+	    	<a data-target="#profile" role="tab" data-toggle="tab">Contact Info</a>
+	    </li>
+	    <li role="presentation">
+	    	<a data-target="#upload-report" role="tab" data-toggle="tab">Upload Report</a>
+	    </li>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">Profile</div>
-    <div role="tabpanel" class="tab-pane" id="profile">Home</div>
-    <div role="tabpanel" class="tab-pane" id="messages">Pau</div>
-    <div role="tabpanel" class="tab-pane" id="settings">dsada</div>
-  </div>
+	    <li role="presentation">
+	    	<a data-target="#reports" role="tab" data-toggle="tab">Reports</a>
+	    </li>
+	   
+	  </ul>
 
-</div>
+	  <!-- Tab panes -->
+	 <div class="tab-content" style="margin:20px">
+	    
+	    <div role="tabpanel" class="tab-pane active" id="home">
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Name</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.name" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Email address</label>
+		    <input type="email" class="form-control" ng-model="patient.emails[0].address" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group datetimepicker">
+		    <label for="exampleInputEmail1">Birthdate</label>
+		    <input class="set-due-date form-control" id="dob-pat" type="text" ng-model="patient.profile.birthdate" ng-readonly="true">
+		  </div>
+
+		  <script type="text/javascript">
+	        $('#dob-pat').datetimepicker({
+	          format: 'DD/MM/YYYY'
+	        });
+	      </script>
+
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">Gender : </label>
+		    <span>{{patient.profile.gender}}</span>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">Blood Group : </label>
+		    <span>{{patient.profile.blood_group}}</span>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Allergies (if any)</label>
+		    <input type="text" ng-model="patient.profile.allergies" class="form-control" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Identification Mark</label>
+		    <input type="text" ng-model="patient.profile.identification_mark" class="form-control" ng-readonly="true">
+		  </div>
+	    </div>
+
+	    <div role="tabpanel" class="tab-pane" id="profile">
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Mobile No.</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.primary_contact_no" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Father's Name</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.father_name" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Fathers No.</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.father_contact_no" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Mother's Name</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.mother_name" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Mothers No.</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.mother_contact_no" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Work No.</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.work_contact_no" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Other Emergency No.</label>
+		    <input type="text" class="form-control" ng-model="patient.profile.emergency_contact_no" ng-readonly="true">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Address</label>
+		    <textarea class="form-control" rows="5" ng-model="patient.profile.address" ng-readonly="true"></textarea>
+		  </div>
+	    </div>
+
+	    <div role="tabpanel" class="tab-pane" id="upload-report">
+	    	<form name="form">
+	    		<div class="form-group">
+				  {{file.file.name}} <span class="btn btn-primary" ngf-select ng-model="file.file" name="file">Select File</span>
+				</div>
+				
+				<div class="form-group">
+					<textarea class="form-control" ng-model="file.file_comment" placeholder="Comment">
+					</textarea>
+				</div>
 
 
-<div class="col-lg-12" ng-show="found_patient">
-	<h3>Account Details</h3>
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Email address</label>
-	    <input type="email" class="form-control" ng-model="currentUser.emails[0].address" ng-readonly="true">
+				<div class="form-group">
+					Privacy
+					<select ng-model="file.doctor_privacy">
+						<option value="public" selected="selected">Public</option>
+						<option value="private">Private</option>
+					</select>
+				</div>
+
+			</form>
+	    	<button class="btn btn-primary" ng-click="uploadFile()">Upload Report</button>
+	    </div>
+
+	    <div role="tabpanel" class="tab-pane" id="reports">
+	    	<div ng-class="{'panel-success': report.metadata.uploaded_by == currentUser._id}" class="panel panel-primary" ng-repeat="report in reports">
+	    		<div class="panel-heading">
+					<h3 class="panel-title">
+						{{report.original.name}}
+						<span class="pull-right">{{report.uploadedAt | date: 'dd/MM/yyyy'}}</span>
+					</h3>
+					
+	    		</div>
+				<div class="panel-body">
+				    {{report.metadata.comment}} 
+				    <span ng-show="!report.metadata.comment || report.metadata.comment==''">No comments.</span>
+				</div>
+			  
+				<div class="panel-footer">
+				  	This report was uploaded by {{report.uploaded_by.profile.name}}
+				  	
+				  	<div class="pull-right">
+				  		<a href="http://localhost:3000/{{report.url}}" target="_blank">View File</a>
+				  	</div>
+				</div>
+			  
+			</div>
+	    </div>
+	    
 	  </div>
 
-	  <div class="form-group">
-	    <label for="exampleInputPassword1">Blood Group</label>
-	    <select ng-model="currentUser.profile.blood_group" ng-readonly="true">
-	      <option class="AB+">AB+</option>
-	      <option class="AB-">AB-</option>
-	      <option class="A+">A+</option>
-	      <option class="A-">A-</option>
-	      <option class="B+">B+</option>
-	      <option class="B-">B-</option>
-	      <option class="O+">O+</option>
-	      <option class="O-">O-</option>
-	    </select>
-	  </div>
+	</div>
 
-	  <hr>
-	  <h3>Contact Details</h3>
+	<div ng-show="patient.profile.profile_status == 'private'" style="text-align: center; margin: 20px">
+		Sorry. The user profile is private
+	</div>
 
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Mobile No.</label>
-	    <input type="text" class="form-control" ng-model="currentUser.profile.primary_contact_no" ng-readonly="true">
-	  </div>
-
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Fathers No.</label>
-	    <input type="text" class="form-control" ng-model="currentUser.profile.father_contact_no" ng-readonly="true">
-	  </div>
-
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Mothers No.</label>
-	    <input type="text" class="form-control" ng-model="currentUser.profile.mother_contact_no" ng-readonly="true">
-	  </div>
-
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Work No.</label>
-	    <input type="text" class="form-control" ng-model="currentUser.profile.work_contact_no" ng-readonly="true">
-	  </div>
-
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Other Emergency No.</label>
-	    <input type="text" class="form-control" ng-model="currentUser.profile.emergency_contact_no" ng-readonly="true">
-	  </div>
-
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Address</label>
-	    <textarea class="form-control" rows="5" ng-model="currentUser.profile.address" ng-readonly="true"></textarea>
-	  </div>
-
-</div>
-
-<div ng-show="searchDone && found_patient==undefined" style="text-align:center; font-size: 20px">
-	<span style="font-style: italic;">No Patient Found!</span>
+	<div ng-show="searchDone && patient==undefined" style="text-align:center; font-size: 20px">
+		<span style="font-style: italic;">No Patient Found!</span>
+	</div>
 </div>

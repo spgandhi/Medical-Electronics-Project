@@ -1,0 +1,13 @@
+<h3>Logs</h3>
+<div class="panel panel-default" ng-repeat="log in currentUser.profile.logs | orderBy:'-'">
+	<div class="panel-body" ng-if="log.type == 'view'">
+		<span>Your profile was viewed by <span style="font-weight: 500">{{log.name}}</span> on <span style="font-weight: 500">{{log.date | date: "dd/MM/yyyy 'at' h:m a"}}</span></span>
+	</div>
+	<div class="panel-body" ng-if="log.type == 'upload'">
+		<span style="font-style: italic;font-weight: 500;">"{{log.filename}}"</span> was uploaded by <span style="font-weight: 500">{{log.name}}</span> on <span style="font-weight: 500">{{log.date | date: "dd/MM/yyyy 'at' h:m a"}}</span>
+	</div>
+</div>
+
+<div ng-show="logs.length==0">
+	There is no recent activity.
+</div>

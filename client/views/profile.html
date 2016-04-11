@@ -1,67 +1,186 @@
-<form class="col-lg-6" name="register">
-  
-  <h3>Account Details</h3>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" ng-model="currentUser.emails[0].address" ng-readonly="true">
+<div style="margin:20px">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a data-target="#home" role="tab" data-toggle="tab">Home</a>
+    </li>
+    <li role="presentation">
+      <a data-target="#profile" role="tab" data-toggle="tab">Contact Info</a>
+    </li>
+    <li role="presentation">
+      <a data-target="#upload-report" role="tab" data-toggle="tab">Upload Report</a>
+    </li>
+
+    <li role="presentation">
+      <a data-target="#reports" role="tab" data-toggle="tab" ng-click="getFiles()">Reports</a>
+    </li>
+   
+  </ul>
+
+  <!-- Tab panes -->
+ <div class="tab-content" style="margin:20px">
+    
+    <div role="tabpanel" class="tab-pane active" id="home">
+
+       <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <span class="red">*</span>
+        <input type="text" class="form-control" ng-model="currentUser.profile.name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <span class="red">*</span>
+        <input type="email" class="form-control" ng-model="currentUser.emails[0].address" required>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Birthdate</label>
+        <span class="red">*</span>
+        <input class="set-due-date form-control" id="dob-pro" type="text" ng-model="currentUser.profile.birthdate" required>
+        <script type="text/javascript">
+        $('#dob-pro').datetimepicker({
+          format: 'DD/MM/YYYY'
+        });
+        </script>
+      </div>
+      
+      
+
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Gender</label>
+        <span class="red">*</span>
+        <select ng-model="currentUser.profile.gender" required>
+          <option class="male">male</option>
+          <option class="female">female</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Blood Group</label>
+        <span class="red">*</span>
+        <select ng-model="currentUser.profile.blood_group" required>
+          <option class="AB+">AB+</option>
+          <option class="AB-">AB-</option>
+          <option class="A+">A+</option>
+          <option class="A-">A-</option>
+          <option class="B+">B+</option>
+          <option class="B-">B-</option>
+          <option class="O+">O+</option>
+          <option class="O-">O-</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Profile Status</label>
+        <span class="red">*</span>
+        <select ng-model="currentUser.profile.profile_status" required>
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+        </select>
+      </div>
+
+      <button class="btn btn-default" ng-click="update()">Update</button>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="profile">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Mobile No.</label>
+        <span class="red">*</span>
+        <input type="text" class="form-control" ng-model="currentUser.profile.primary_contact_no" required>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Father's Name</label>
+        <input type="text" class="form-control" ng-model="currentUser.profile.father_name">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Fathers No.</label>
+        <input type="text" class="form-control" ng-model="currentUser.profile.father_contact_no">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Mother's Name</label>
+        <input type="text" class="form-control" ng-model="currentUser.profile.mother_name">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Mothers No.</label>
+        <input type="text" class="form-control" ng-model="currentUser.profile.mother_contact_no">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Work No.</label>
+        <input type="text" class="form-control" ng-model="currentUser.profile.work_contact_no">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Other Emergency No.</label>
+        <input type="text" class="form-control" ng-model="currentUser.profile.emergency_contact_no">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Address</label>
+        <span class="red">*</span>
+        <textarea class="form-control" rows="5" ng-model="currentUser.profile.address" required></textarea>
+      </div>
+
+      <button class="btn btn-default" ng-click="update()">Update</button>
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane" id="upload-report">
+      <form name="form">
+        <div class="form-group">
+        {{file.file.name}} <span class="btn btn-primary" ngf-select ng-model="file.file" name="file">Select File</span>
+      </div>
+      
+      <div class="form-group">
+        <textarea class="form-control" ng-model="file.file_comment" placeholder="Comment">
+        </textarea>
+      </div>
+
+
+      <div class="form-group">
+        Privacy
+        <select ng-model="file.privacy">
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+        </select>
+      </div>
+
+    </form>
+      <button class="btn btn-primary" ng-click="uploadFile()">Upload Report</button>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="reports">
+      <div class="panel panel-primary" ng-repeat="report in reports">
+        <div class="panel-heading">
+        <h3 class="panel-title">
+          {{report.original.name}}
+          <span class="pull-right">{{report.uploadedAt | date: 'dd/MM/yyyy'}}</span>
+        </h3>
+        
+        </div>
+      <div class="panel-body">
+          {{report.metadata.comment}} 
+          <span ng-show="!report.metadata.comment || report.metadata.comment==''">No comments.</span>
+      </div>
+      
+      <div class="panel-footer">
+          This report was uploaded by {{report.uploaded_by.profile.name}}
+          
+          <div class="pull-right">
+            <a href="http://localhost:3000/{{report.url}}" target="_blank">View File</a>
+          </div>
+      </div>
+      
+    </div>
+    </div>
+    
   </div>
 
-  <div class="form-group">
-    <label for="exampleInputPassword1">Blood Group</label>
-    <select ng-model="currentUser.profile.blood_group" required>
-      <option class="AB+">AB+</option>
-      <option class="AB-">AB-</option>
-      <option class="A+">A+</option>
-      <option class="A-">A-</option>
-      <option class="B+">B+</option>
-      <option class="B-">B-</option>
-      <option class="O+">O+</option>
-      <option class="O-">O-</option>
-    </select>
-  </div>
-
-  <hr>
-  <h3>Contact Details</h3>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Mobile No.</label>
-    <input type="text" class="form-control" ng-model="currentUser.profile.primary_contact_no" required>
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Fathers No.</label>
-    <input type="text" class="form-control" ng-model="currentUser.profile.father_contact_no">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Mothers No.</label>
-    <input type="text" class="form-control" ng-model="currentUser.profile.mother_contact_no">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Work No.</label>
-    <input type="text" class="form-control" ng-model="currentUser.profile.work_contact_no">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Other Emergency No.</label>
-    <input type="text" class="form-control" ng-model="currentUser.profile.emergency_contact_no">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Address</label>
-    <textarea class="form-control" rows="5" ng-model="currentUser.profile.address"></textarea>
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1">Profile Status</label>
-    <select ng-model="currentUser.profile.profile_status" required>
-      <option value="public">Public</option>
-      <option value="private">Private</option>
-    </select>
-  </div>
-
-
-  <button class="btn btn-default" ng-click="update()">Register</button>
-
-</form>
+</div>

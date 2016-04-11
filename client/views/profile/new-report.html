@@ -1,0 +1,21 @@
+<form name="form">
+        <div class="form-group">
+        {{file.file.name}} <span class="btn btn-primary" ngf-select ng-model="file.file" name="file">Select File</span>
+      </div>
+      
+      <div class="form-group">
+        <textarea class="form-control" ng-model="file.file_comment" placeholder="Comment">
+        </textarea>
+      </div>
+
+
+      <div class="form-group">
+        Privacy
+        <select ng-model="file.patient_privacy">
+          <option value="public" selected="selected">Public</option>
+          <option value="private">Private</option>
+        </select>
+      </div>
+
+    </form>
+      <button class="btn btn-primary" ng-click="uploadFile()">Upload Report</button>

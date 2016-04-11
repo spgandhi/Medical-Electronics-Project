@@ -23,13 +23,15 @@
   <div class="form-group datetimepicker">
     <label for="exampleInputEmail1">Birthdate</label>
     <span class="red">*</span>
-    <input class="set-due-date form-control datetimepicker" type="text" ng-model="newUser.profile.birthdate" required>
-  </div>
-  <script type="text/javascript">
-   $('.datetimepicker').datetimepicker({
+    <input class="set-due-date form-control" id="dob" type="text" ng-model="newUser.profile.birthdate" required>
+     <script type="text/javascript">
+    $('#dob').datetimepicker({
       format: 'DD/MM/YYYY'
-   });
-  </script>
+    });
+    </script>
+  </div>
+
+ 
 
 
   <div class="form-group">
@@ -109,6 +111,21 @@
       <option value="private">Private</option>
     </select>
   </div>
+
+  <hr>
+  <h3>Other Information</h3>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Allergies (if any)</label>
+    <input type="text" ng-model="newUser.profile.allergies" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Identification Mark</label>
+    <input type="text" ng-model="newUser.profile.identification_mark" class="form-control">
+  </div>
+
+  
+
 
 
   <button class="btn btn-default" ng-click="registerMe()">Register</button>
